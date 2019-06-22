@@ -5,25 +5,19 @@ import edu.umss.storeservice.dto.dtoEasyShopping.CategoriaDto;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.NamedStoredProcedureQuery;
 import java.util.Objects;
 
 /**
  * @author Juan Montaño
  */
 
-@NamedStoredProcedureQuery(
-        name = "allCategory",
-        procedureName = "ALL_CATEGORIA",
-        resultClasses = Categoria.class
-)
 @Entity
 public class Categoria extends ModelBase<CategoriaDto> {
 
     private String descripcion;
 
     @Basic
-    @Column(name = "Descripcion", nullable = false, length = 50)
+    @Column(name = "descripcion", nullable = false, length = 50)
     public String getDescripcion() {
         return descripcion;
     }
@@ -50,7 +44,7 @@ public class Categoria extends ModelBase<CategoriaDto> {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Category [description=").append(descripcion).append("]");
+        builder.append("Categoria [description=").append(descripcion).append("]");
         return builder.toString();
     }
 }

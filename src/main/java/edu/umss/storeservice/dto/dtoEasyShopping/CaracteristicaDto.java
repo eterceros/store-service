@@ -1,5 +1,6 @@
 package edu.umss.storeservice.dto.dtoEasyShopping;
 
+
 import edu.umss.storeservice.model.modelEasyShopping.Caracteristica;
 
 /**

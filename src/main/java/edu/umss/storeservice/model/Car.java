@@ -1,18 +1,21 @@
 package edu.umss.storeservice.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
  * @author Juan Montaño
  */
-
+/*
 @NamedStoredProcedureQuery(
                 name = "allCar",
                 procedureName = "ALL_CAR",
                 resultClasses = Car.class
                 )
-@Entity
+@Entity*/
 public class Car implements Serializable {
 
     private long id;
