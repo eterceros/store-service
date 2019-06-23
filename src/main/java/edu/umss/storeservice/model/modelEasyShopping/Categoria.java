@@ -41,10 +41,4 @@ public class Categoria extends ModelBase<CategoriaDto> {
         return Objects.hash(descripcion);
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("Categoria [description=").append(descripcion).append("]");
-        return builder.toString();
-    }
 }

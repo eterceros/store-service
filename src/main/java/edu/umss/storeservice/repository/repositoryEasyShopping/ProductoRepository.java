@@ -4,7 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import edu.umss.storeservice.model.modelEasyShopping.Producto;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.StoredProcedureQuery;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +26,7 @@ public class ProductoRepository implements StoredProcedureRepositoryImpl<Product
     public List<Producto> findAll() {
         em.getTransaction().begin();
 
-        StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("GET_ALL_PRODUCTO", Producto.class);
+        StoredProcedureQuery storedProcedure = em.createNamedStoredProcedureQuery("GetAllProducto");
 
         storedProcedure.execute();
 
@@ -44,8 +47,8 @@ public class ProductoRepository implements StoredProcedureRepositoryImpl<Product
 
         em.getTransaction().begin();
 
-        StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("GET_PRODUCTO_BY_ID", Producto.class);
-        storedProcedure.registerStoredProcedureParameter("idProducto", Integer.class, ParameterMode.IN);
+        StoredProcedureQuery storedProcedure = em.createNamedStoredProcedureQuery("GetProductoById");
+
         storedProcedure.setParameter("idProducto", id);
         storedProcedure.execute();
         List<Producto> list = storedProcedure.getResultList();
@@ -70,8 +73,8 @@ public class ProductoRepository implements StoredProcedureRepositoryImpl<Product
     public void deleteById(Long id) {
         em.getTransaction().begin();
 
-        StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("DELETE_PRODUCTO", Producto.class);
-        storedProcedure.registerStoredProcedureParameter("idProducto", Integer.class, ParameterMode.IN);
+        StoredProcedureQuery storedProcedure = em.createNamedStoredProcedureQuery("DeleteProducto");
+
         storedProcedure.setParameter("idProducto", id);
 
         boolean result = storedProcedure.execute();
@@ -83,21 +86,17 @@ public class ProductoRepository implements StoredProcedureRepositoryImpl<Product
     }
 
     @Override
-    public Producto save(Producto model) {
+    public Producto save(Producto producto) {
+
         em.getTransaction().begin();
 
-        StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("INSERT_PRODUCTO");
-        storedProcedure.registerStoredProcedureParameter("descripcion", String.class, ParameterMode.IN);
-        storedProcedure.registerStoredProcedureParameter("marca", String.class, ParameterMode.IN);
-        storedProcedure.registerStoredProcedureParameter("nombre", String.class, ParameterMode.IN);
-        storedProcedure.registerStoredProcedureParameter("porcentaje_oferta", Integer.class, ParameterMode.IN);
-        storedProcedure.registerStoredProcedureParameter("precio", Double.class, ParameterMode.IN);
-        storedProcedure.registerStoredProcedureParameter("fk_categoria", Integer.class, ParameterMode.IN);
-        storedProcedure.setParameter("nombre", "Ron Zacapa");
-        storedProcedure.setParameter("marca", "Zacapa");
-        storedProcedure.setParameter("descripcion", "Zacapa 23 es un ron super-premium elaborado a partir de una mezcla de rones anejados entre 6 y 23 anos, Zacapa fue distinguido durante cinco anos consecutivos como el mejor ron del mundo en el International Rum Tasting Contest y es el anico ron premium incluido en el Salon de la Fama del Ron");
-        storedProcedure.setParameter("precio", 2100.0);
-        storedProcedure.setParameter("porcentaje_oferta", 0);
+        StoredProcedureQuery storedProcedure = em.createNamedStoredProcedureQuery("InsertProducto");
+
+        storedProcedure.setParameter("nombre", producto.getNombre());
+        storedProcedure.setParameter("marca", producto.getMarca());
+        storedProcedure.setParameter("descripcion", producto.getDescripcion());
+        storedProcedure.setParameter("precio", producto.getPrecio());
+        storedProcedure.setParameter("porcentaje_oferta", producto.getPorcentajeOferta());
         storedProcedure.setParameter("fk_categoria", 1);
 
         List<Producto> list = storedProcedure.getResultList();
