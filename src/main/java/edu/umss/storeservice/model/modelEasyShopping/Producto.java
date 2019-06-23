@@ -2,10 +2,7 @@ package edu.umss.storeservice.model.modelEasyShopping;
 
 import edu.umss.storeservice.dto.dtoEasyShopping.ProductoDto;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
@@ -17,10 +14,13 @@ public class Producto extends ModelBase<ProductoDto> {
     private String marca;
     private String descripcion;
     private Double precio;
+
+    @Column(name = "porcentaje_oferta", nullable = true)
     private Integer porcentajeOferta;
 
     @ManyToOne
-    private Categoria categoriaByIdCategoria;
+    @JoinColumn(name = "fk_categoria ", nullable = false)
+    private Categoria categoriaId;
 
     @Basic
     @Column(name = "Nombre", nullable = false, length = 150)
@@ -63,7 +63,6 @@ public class Producto extends ModelBase<ProductoDto> {
     }
 
     @Basic
-    @Column(name = "PorcentajeOferta", nullable = true)
     public Integer getPorcentajeOferta() {
         return porcentajeOferta;
     }
@@ -91,11 +90,18 @@ public class Producto extends ModelBase<ProductoDto> {
         return Objects.hash(nombre, marca, descripcion, precio, porcentajeOferta);
     }
 
-    public Categoria getCategoriaByIdCategoria() {
-        return categoriaByIdCategoria;
+    public Categoria getCategoriaId() {
+        return categoriaId;
     }
 
-    public void setCategoriaByIdCategoria(Categoria categoriaByIdCategoria) {
-        this.categoriaByIdCategoria = categoriaByIdCategoria;
+    public void setCategoriaId(Categoria categoriaId) {
+        this.categoriaId = categoriaId;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Producto [model=").append(getId()).append("]");
+        return builder.toString();
     }
 }

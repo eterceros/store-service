@@ -1,34 +1,109 @@
 package edu.umss.storeservice;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import edu.umss.storeservice.model.modelEasyShopping.Categoria;
+import edu.umss.storeservice.model.modelEasyShopping.Producto;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class StoreServiceApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(StoreServiceApplication.class, args);
+//------------ Juan------Producto
+//        EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-db");
+//        EntityManager em = factory.createEntityManager();
+//
+//        em.getTransaction().begin();
+//
+//        StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("GET_ALL_PRODUCTO", Producto.class);
+//
+//        storedProcedure.execute();
+//        Gson gson = new Gson();
+//
+//        List<Producto> list = storedProcedure.getResultList();
+//        String q = gson.toJson(list);
+//        list = gson.fromJson(q, new TypeToken<ArrayList<Producto>>(){}.getType());
+//        System.out.println("la cantidad es esta: " + list);
+//        System.out.println("la cantidad es esta: " + list.get(1).getMarca());
+//        em.getTransaction().commit();
+//        em.close();
+        //-----------------------------------------------------------------------------------------
+//        EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-db");
+//        EntityManager em = factory.createEntityManager();
+//
+//        em.getTransaction().begin();
+//
+//        StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("GET_PRODUCTO_BY_ID", Producto.class);
+//        storedProcedure.registerStoredProcedureParameter("idProducto", Integer.class,ParameterMode.IN);
+//        storedProcedure.setParameter("idProducto",1);
+//
+//        storedProcedure.execute();
+//        Gson gson = new Gson();
+//
+//        List<Producto> list = storedProcedure.getResultList();
+//        String q = gson.toJson(list);
+//        list = gson.fromJson(q, new TypeToken<ArrayList<Producto>>(){}.getType());
+//        System.out.println("el producto es : " + list);
+//        System.out.println("la cantidad es esta: " + list.get(0).getMarca());
+//        em.getTransaction().commit();
+//        em.close();
 
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-db");
-        EntityManager em = factory.createEntityManager();
+//--------------------------------------------------------------------------
+//        EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-db");
+//        EntityManager em = factory.createEntityManager();
+//
+//        em.getTransaction().begin();
+//
+//        StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("DELETE_PRODUCTO", Producto.class);
+//        storedProcedure.registerStoredProcedureParameter("idProducto", Integer.class,ParameterMode.IN);
+//        storedProcedure.setParameter("idProducto",1);
+//
+//        boolean result = storedProcedure.execute();
+//        if(result = true){
+//            System.out.print("el producto ha sido elimnado con exito");
+//        }
+//----------------------------------------------------------------
+//        EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-db");
+//        EntityManager em = factory.createEntityManager();
+//
+//        em.getTransaction().begin();
+//
+//        StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("INSERT_PRODUCTO");
+//        storedProcedure.registerStoredProcedureParameter("descripcion", String.class,ParameterMode.IN);
+//        storedProcedure.registerStoredProcedureParameter("marca", String.class,ParameterMode.IN);
+//        storedProcedure.registerStoredProcedureParameter("nombre", String.class,ParameterMode.IN);
+//        storedProcedure.registerStoredProcedureParameter("porcentaje_oferta", Integer.class,ParameterMode.IN);
+//        storedProcedure.registerStoredProcedureParameter("precio", Double.class,ParameterMode.IN);
+//        storedProcedure.registerStoredProcedureParameter("fk_categoria", Integer.class,ParameterMode.IN);
+//        storedProcedure.setParameter("nombre","Ron Zacapa");
+//        storedProcedure.setParameter("marca","Zacapa");
+//        storedProcedure.setParameter("descripcion","Zacapa 23 es un ron super-premium elaborado a partir de una mezcla de rones anejados entre 6 y 23 anos, Zacapa fue distinguido durante cinco anos consecutivos como el mejor ron del mundo en el International Rum Tasting Contest y es el anico ron premium incluido en el Salon de la Fama del Ron");
+//        storedProcedure.setParameter("precio",2100.0);
+//        storedProcedure.setParameter("porcentaje_oferta",0);
+//        storedProcedure.setParameter("fk_categoria",1);
+//
+//        List<Categoria> list = storedProcedure.getResultList();
+//
+//        if(list.size()>0) {
+//            Gson gson = new Gson();
+//            String res = gson.toJson(list.get(0));
+//            System.out.print("Insert date is: " + res);
+//            em.getTransaction().commit();
+//            em.close();
+//
+//        }else {
+//            em.getTransaction().commit();
+//            em.close();
+//        }
+//--------------Producto end--------------------------
 
-        /*em.getTransaction().begin();
-
-        StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("GET_ALL_CATEGORIA", Categoria.class);
-
-        storedProcedure.execute();
-        Gson gson = new Gson();
-
-        List<Categoria> list = storedProcedure.getResultList();
-        String q = gson.toJson(list);
-        list = gson.fromJson(q, new TypeToken<ArrayList<Categoria>>(){}.getType());
-        System.out.println("la cantidad es esta: " + list.get(0).getDescripcion());
-        em.getTransaction().commit();
-        em.close();*/
         //----------------------------------------------------------------------------------------------------
         /*
         em.getTransaction().begin();

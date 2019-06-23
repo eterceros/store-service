@@ -1,21 +1,60 @@
+//----------------------------------producto-----------------
+CREATE procedure GET_ALL_PRODUCTO
+as
+  SET XACT_ABORT ON;
+  SET NOCOUNT ON;
+  BEGIN
+    select *
+    from producto
+  END
+GO
 
---SET ANSI_NULLS ON
---GO
---SET QUOTED_IDENTIFIER ON
---GO
---CREATE PROCEDURE [dbo].[ALL_CAR]
---AS
---  BEGIN
---    SELECT *
---    FROM Car
---  END;
+CREATE procedure GET_PRODUCTO_BY_ID
+  (
+    @idProducto int
+  )
+as
+  SET XACT_ABORT ON;
+  SET NOCOUNT ON;
+  BEGIN
+    select *
+    from dbo.producto	pro
+    where pro.id = @idProducto;
+  END
+GO
 
---GO
- --SET ANSI_NULLS ON
---GO
---SET QUOTED_IDENTIFIER ON
---GO
+CREATE procedure DELETE_PRODUCTO
+  (
+    @idProducto int
+  )
+as
+  SET XACT_ABORT ON;
+  SET NOCOUNT ON;
+  BEGIN
+    delete from producto where id = @idProducto;
+  END
+GO
 
+create procedure INSERT_PRODUCTO
+  (
+    @descripcion varchar(255),
+    @marca varchar(50),
+    @nombre varchar(50),
+    @porcentaje_oferta int,
+    @precio float,
+    @fk_categoria int
+
+  )
+as
+  SET XACT_ABORT ON;
+  SET NOCOUNT ON;
+  BEGIN
+    INSERT INTO dbo.Producto (nombre, marca,descripcion,precio,porcentaje_oferta, fk_categoria)
+    VALUES (@nombre,@marca,@descripcion,@precio,@porcentaje_oferta,@fk_categoria);
+    select * from producto where id=@@IDENTITY;
+  END
+GO
+------------------------------- producto end ----------------------------------------------
 
 CREATE procedure GET_ALL_CATEGORIA
 as
