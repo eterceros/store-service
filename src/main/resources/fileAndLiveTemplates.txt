@@ -96,8 +96,8 @@ public interface ${NAME}Service extends GenericService<${NAME}> {
 #parse("File Header.java")
 
 import edu.umss.storeservice.model.${NAME};
-import edu.umss.storeservice.repositories.${NAME}Repository;
-import edu.umss.storeservice.repositories.GenericRepository;
+import edu.umss.storeservice.repository.${NAME}Repository;
+import edu.umss.storeservice.repository.GenericRepository;
 import org.springframework.stereotype.Service;
 
 @Service

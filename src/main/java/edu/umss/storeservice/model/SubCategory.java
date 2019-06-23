@@ -5,13 +5,13 @@
 package edu.umss.storeservice.model;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class SubCategory extends ModelBase {
     private String name;
     private String code;
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Category category;
 
     public String getName() {
