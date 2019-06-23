@@ -1,17 +1,8 @@
 package edu.umss.storeservice;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import edu.umss.storeservice.model.modelEasyShopping.Categoria;
-import edu.umss.storeservice.model.modelEasyShopping.Producto;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.StoredProcedureQuery;
-import java.util.List;
 
 @SpringBootApplication
 public class StoreServiceApplication {
@@ -71,35 +62,35 @@ public class StoreServiceApplication {
 //            System.out.print("el producto ha sido elimnado con exito");
 //        }
 //----------------------------------------------------------------
-
-        EntityManagerFactory factory1 = Persistence.createEntityManagerFactory("jpa-db");
-        EntityManager em1 = factory1.createEntityManager();
-        em1.getTransaction().begin();
-        StoredProcedureQuery storedProcedure = em1.createNamedStoredProcedureQuery("InsertProducto");
-
-        Producto pro = new Producto();
-        pro.getClass().getName();
-
-        storedProcedure.setParameter("nombre", "Ron Zacapa");
-        storedProcedure.setParameter("marca", "Zacapa");
-        storedProcedure.setParameter("descripcion", "Zacapa 23 es un ron super-premium elaborado a partir de una mezcla de rones anejados entre 6 y 23 anos, Zacapa fue distinguido durante cinco anos consecutivos como el mejor ron del mundo en el International Rum Tasting Contest y es el anico ron premium incluido en el Salon de la Fama del Ron");
-        storedProcedure.setParameter("precio", 2100.0);
-        storedProcedure.setParameter("porcentaje_oferta", 0);
-        storedProcedure.setParameter("fk_categoria", 1);
-
-        List<Categoria> list = storedProcedure.getResultList();
-
-        if (list.size() > 0) {
-
-            String res1 = gson.toJson(list.get(0));
-            System.out.print("Insert date is: " + res1);
-            em1.getTransaction().commit();
-            em1.close();
-
-        } else {
-            em1.getTransaction().commit();
-            em1.close();
-        }
+//
+//        EntityManagerFactory factory1 = Persistence.createEntityManagerFactory("jpa-db");
+//        EntityManager em1 = factory1.createEntityManager();
+//        em1.getTransaction().begin();
+//        StoredProcedureQuery storedProcedure = em1.createNamedStoredProcedureQuery("InsertProducto");
+//
+//        Producto pro = new Producto();
+//        pro.getClass().getName();
+//
+//        storedProcedure.setParameter("nombre", "Ron Zacapa");
+//        storedProcedure.setParameter("marca", "Zacapa");
+//        storedProcedure.setParameter("descripcion", "Zacapa 23 es un ron super-premium elaborado a partir de una mezcla de rones anejados entre 6 y 23 anos, Zacapa fue distinguido durante cinco anos consecutivos como el mejor ron del mundo en el International Rum Tasting Contest y es el anico ron premium incluido en el Salon de la Fama del Ron");
+//        storedProcedure.setParameter("precio", 2100.0);
+//        storedProcedure.setParameter("porcentaje_oferta", 0);
+//        storedProcedure.setParameter("fk_categoria", 1);
+//
+//        List<Categoria> list = storedProcedure.getResultList();
+//
+//        if (list.size() > 0) {
+//
+//            String res1 = gson.toJson(list.get(0));
+//            System.out.print("Insert date is: " + res1);
+//            em1.getTransaction().commit();
+//            em1.close();
+//
+//        } else {
+//            em1.getTransaction().commit();
+//            em1.close();
+//        }
 //--------------Producto end--------------------------
 
         //----------------------------------------------------------------------------------------------------
