@@ -120,4 +120,59 @@ BEGIN
 END
 GO
 
+//----------------------------------Caracteristica-----------------
+CREATE procedure GET_ALL_CARACTERISTICA
+as
+  SET XACT_ABORT ON;
+  SET NOCOUNT ON;
+  BEGIN
+    select *
+    from caracteristica
+  END
+GO
+
+CREATE procedure GET_CARACTERISTICA_BY_ID
+  (
+    @idCaracteristica int
+  )
+as
+  SET XACT_ABORT ON;
+  SET NOCOUNT ON;
+  BEGIN
+    select *
+    from dbo.caracteristica	carac
+    where carac.id = @idCaracteristica;
+  END
+GO
+
+CREATE procedure DELETE_CARACTERISTICA
+  (
+    @idCaracteristica int
+  )
+as
+  SET XACT_ABORT ON;
+  SET NOCOUNT ON;
+  BEGIN
+    delete from caracteristica where id = @idCaracteristica;
+  END
+GO
+
+create procedure INSERT_CARACTERISTICA
+  (
+    @campo varchar(150),
+    @valor varchar(150),
+    @fk_producto int
+
+  )
+as
+  SET XACT_ABORT ON;
+  SET NOCOUNT ON;
+  BEGIN
+    INSERT INTO dbo.Caracteristica (campo, valor,fk_producto)
+    VALUES (@campo,@valor,@fk_producto);
+    select * from caracteristica where id=@@IDENTITY;
+  END
+GO
+------------------------------- Final de Caracteristica ----------------------------------------------
+
 

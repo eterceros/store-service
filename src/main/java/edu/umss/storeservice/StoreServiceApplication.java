@@ -1,6 +1,7 @@
 package edu.umss.storeservice;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import edu.umss.storeservice.model.modelEasyShopping.Categoria;
 import edu.umss.storeservice.model.modelEasyShopping.Producto;
 import org.springframework.boot.SpringApplication;
@@ -165,6 +166,79 @@ public class StoreServiceApplication {
             em.getTransaction().commit();
             em.close();
         }*/
+
+        //------------ Yerko------Caracteristica
+//        EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-db");
+//        EntityManager em = factory.createEntityManager();
+//        em.getTransaction().begin();
+//
+//        StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("GET_CARACTERISTICA_BY_ID", Caracteristica.class);
+//        storedProcedure.registerStoredProcedureParameter("idCaracteristica", Integer.class, ParameterMode.IN);
+//        storedProcedure.setParameter("idCaracteristica", 1);
+//        storedProcedure.execute();
+//        List<Caracteristica> res = storedProcedure.getResultList();
+//        Gson gson = new Gson();
+//        String out = gson.toJson(res.get(0));
+//
+//        if (res.size() > 0) {
+//            System.out.print("La caracteristica es: " + out);
+//            em.getTransaction().commit();
+//            em.close();
+//        } else {
+//            em.getTransaction().commit();
+//            em.close();
+//        }
+//
+          //--------------------------------------------------------
+//        EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-db");
+//        EntityManager em = factory.createEntityManager();
+//        em.getTransaction().begin();
+//
+//        StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("DELETE_CARACTERISTICA", Caracteristica.class);
+//        storedProcedure.registerStoredProcedureParameter("idCaracteristica", Integer.class, ParameterMode.IN);
+//        storedProcedure.setParameter("idCaracteristica", 1);
+//        storedProcedure.execute();
+//        List<Caracteristica> list = storedProcedure.getResultList();
+//        Gson gson = new Gson();
+//
+//        if (list.size() > 0) {
+//            String res = gson.toJson(list.get(0));
+//            System.out.print("La caracteristica fue eliminada correctamente");
+//            em.getTransaction().commit();
+//            em.close();
+//
+//        } else {
+//            em.getTransaction().commit();
+//            em.close();
+//        }
+//
+          //--------------------------------------------------------
+//        EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-db");
+//        EntityManager em = factory.createEntityManager();
+//        em.getTransaction().begin();
+//
+//        StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("INSERT_CARACTERISTICA");
+//        storedProcedure.registerStoredProcedureParameter("campo", Integer.class, ParameterMode.IN);
+//        storedProcedure.registerStoredProcedureParameter("valor", Integer.class, ParameterMode.IN);
+//        storedProcedure.registerStoredProcedureParameter("fk_producto", Integer.class, ParameterMode.IN);
+//        storedProcedure.setParameter("campo", "Probando");
+//        storedProcedure.setParameter("valor", "test");
+//        storedProcedure.setParameter("fk_producto", 1);
+//        storedProcedure.execute();
+//        List<Caracteristica> list = storedProcedure.getResultList();
+//
+//        if (list.size() > 0) {
+//            Gson gson = new Gson();
+//            String res = gson.toJson(list.get(0));
+//            System.out.print("El dato insertado es: " + res);
+//            em.getTransaction().commit();
+//            em.close();
+//
+//        } else {
+//            em.getTransaction().commit();
+//            em.close();
+//        }
+//--------------Final Caracteristica-------------------------
     }
 
 }
