@@ -2,14 +2,11 @@ package edu.umss.storeservice.model.modelEasyShopping;
 
 import edu.umss.storeservice.dto.dtoEasyShopping.CaracteristicaDto;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
- * @author Juan Montaño
+ * @author Yerko Manzel
  */
 @Entity
 public class Caracteristica extends ModelBase<CaracteristicaDto> {
@@ -18,7 +15,8 @@ public class Caracteristica extends ModelBase<CaracteristicaDto> {
     private String valor;
 
     @ManyToOne
-    private Producto producto;
+    @JoinColumn(name = "fk_producto ", nullable = false)
+    private Producto productoId;
 
 
     @Basic
@@ -58,10 +56,17 @@ public class Caracteristica extends ModelBase<CaracteristicaDto> {
     }
 
     public Producto getProducto() {
-        return producto;
+        return productoId;
     }
 
     public void setProducto(Producto producto) {
-        this.producto = producto;
+        this.productoId = producto;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Caracteristica [model=").append(getId()).append("]");
+        return builder.toString();
     }
 }
