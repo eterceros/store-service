@@ -2,19 +2,70 @@ package edu.umss.storeservice.model.modelEasyShopping;
 
 import edu.umss.storeservice.dto.dtoEasyShopping.ProveedorDto;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
  * @author Juan Montaño
  */
 @Entity
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(
+                name = "getAllProveedor",
+                procedureName = "GET_ALL_PROVEEDOR",
+                resultClasses = Proveedor.class
+        ),
+        @NamedStoredProcedureQuery(
+                name = "GetProveedorById",
+                procedureName = "GET_PROVEEDOR_BY_ID",
+                resultClasses = {Proveedor.class},
+                parameters = {
+                        @StoredProcedureParameter(
+                                name = "idProveedor",
+                                type = Integer.class,
+                                mode = ParameterMode.IN)
+                }
+        ),
+        @NamedStoredProcedureQuery(
+                name = "DeleteProveedor",
+                procedureName = "DELETE_PROVEEDOR",
+                resultClasses = {Proveedor.class},
+                parameters = {
+                        @StoredProcedureParameter(
+                                name = "idProveedor",
+                                type = Integer.class,
+                                mode = ParameterMode.IN
+                        )
+                }
+        ),
+        @NamedStoredProcedureQuery(
+                name = "InsertProveedor",
+                procedureName = "INSERT_PROVEEDOR",
+                resultClasses = {Proveedor.class},
+                parameters = {
+                        @StoredProcedureParameter(
+                                name = "nit",
+                                type = String.class,
+                                mode = ParameterMode.IN
+                        ),
+                        @StoredProcedureParameter(
+                                name = "name",
+                                type = String.class,
+                                mode = ParameterMode.IN
+                        ),
+                        @StoredProcedureParameter(
+                                name = "celular",
+                                type = String.class,
+                                mode = ParameterMode.IN
+                        )
+                }
+        )
+
+})
 public class Proveedor extends ModelBase<ProveedorDto> {
 
     private String nit;
-    private String razonSocial;
+    private String name;
     private String celular;
 
 
@@ -29,13 +80,13 @@ public class Proveedor extends ModelBase<ProveedorDto> {
     }
 
     @Basic
-    @Column(name = "RazonSocial", nullable = false, length = 250)
-    public String getRazonSocial() {
-        return razonSocial;
+    @Column(name = "name", nullable = false, length = 250)
+    public String getName() {
+        return name;
     }
 
-    public void setRazonSocial(String razonSocial) {
-        this.razonSocial = razonSocial;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Basic
@@ -55,13 +106,14 @@ public class Proveedor extends ModelBase<ProveedorDto> {
         Proveedor proveedor = (Proveedor) o;
         return
                 Objects.equals(nit, proveedor.nit) &&
-                        Objects.equals(razonSocial, proveedor.razonSocial) &&
+                        Objects.equals(name, proveedor.name) &&
                         Objects.equals(celular, proveedor.celular);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(nit, razonSocial, celular);
+        return Objects.hash(nit, name, celular);
     }
+
 }
