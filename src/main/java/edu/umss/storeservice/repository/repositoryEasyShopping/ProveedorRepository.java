@@ -5,15 +5,12 @@ import com.google.gson.Gson;
 import edu.umss.storeservice.model.modelEasyShopping.Proveedor;
 import org.modelmapper.TypeToken;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.StoredProcedureQuery;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author: Miguel A.
+ * @author: Miguel A. Quispe
  */
 
 public class ProveedorRepository implements StoredProcedureRepositoryImpl<Proveedor> {
@@ -45,18 +42,73 @@ public class ProveedorRepository implements StoredProcedureRepositoryImpl<Provee
 
     @Override
     public Proveedor findById(Long id) {
-        return null;
+        em.getTransaction().begin();
+
+        StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("GET_PROVEEDOR_BY_ID", Proveedor.class);
+        storedProcedure.registerStoredProcedureParameter("idProveedor", Integer.class, ParameterMode.IN);
+        storedProcedure.setParameter("idProveedor", Integer.valueOf(id.intValue()));
+        storedProcedure.execute();
+        List<Proveedor> list = storedProcedure.getResultList();
+
+        if (list.size() > 0) {
+            String res = gson.toJson(list.get(0));
+            System.out.print("The description is: " + res);
+            em.getTransaction().commit();
+            em.close();
+
+            return gson.fromJson(res, Proveedor.class);
+
+        } else {
+            em.getTransaction().commit();
+            em.close();
+
+            return null;
+        }
     }
 
     @Override
     public void deleteById(Long id) {
+        em.getTransaction().begin();
 
+        StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("DELETE_PROVEEDOR", Proveedor.class);
+        storedProcedure.registerStoredProcedureParameter("idProveedor", Integer.class, ParameterMode.IN);
+        storedProcedure.setParameter("idProveedor", id);
+        storedProcedure.execute();
+        List<Proveedor> list = storedProcedure.getResultList();
+
+        if (list.size() > 0) {
+            String res = gson.toJson(list.get(0));
+            em.getTransaction().commit();
+            em.close();
+
+        } else {
+            em.getTransaction().commit();
+            em.close();
+        }
     }
 
     @Override
-    public Proveedor save(Proveedor model) {
-        return null;
+    public Proveedor save(Proveedor proveedor) {
+        em.getTransaction().begin();
+
+        StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("INSERT_PROVEEDOR", Proveedor.class);
+        storedProcedure.setParameter("nit", proveedor.getNit());
+        storedProcedure.setParameter("name", proveedor.getName());
+        storedProcedure.setParameter("celular", proveedor.getCelular());
+        storedProcedure.execute();
+        List<Proveedor> list = storedProcedure.getResultList();
+
+        if (list.size() > 0) {
+            String res = gson.toJson(list.get(0));
+            System.out.print("Insert is: " + res);
+            em.getTransaction().commit();
+            em.close();
+            return gson.fromJson(res, Proveedor.class);
+
+        } else {
+            em.getTransaction().commit();
+            em.close();
+            return null;
+        }
     }
-
-
 }

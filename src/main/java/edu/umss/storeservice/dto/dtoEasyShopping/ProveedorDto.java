@@ -7,7 +7,7 @@ import edu.umss.storeservice.model.modelEasyShopping.Proveedor;
  */
 public class ProveedorDto extends DtoBase<Proveedor> {
     private String nit;
-    private String razonSocial;
+    private String name;
     private String celular;
 
     public String getNit() {
@@ -19,11 +19,11 @@ public class ProveedorDto extends DtoBase<Proveedor> {
     }
 
     public String getRazonSocial() {
-        return razonSocial;
+        return name;
     }
 
-    public void setRazonSocial(String razonSocial) {
-        this.razonSocial = razonSocial;
+    public void setRazonSocial(String name) {
+        this.name = name;
     }
 
     public String getCelular() {
