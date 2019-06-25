@@ -18,12 +18,13 @@ public class CategoriaRepository implements StoredProcedureRepositoryImpl<Catego
 
     private EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-db");
 
-    private EntityManager em = factory.createEntityManager();
+    private EntityManager em;
 
     private Gson gson = new Gson();
 
     @Override
     public List<Categoria> findAll() {
+        em = factory.createEntityManager();
         em.getTransaction().begin();
 
         StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("GET_ALL_CATEGORIA", Categoria.class);
@@ -44,6 +45,7 @@ public class CategoriaRepository implements StoredProcedureRepositoryImpl<Catego
 
     @Override
     public Categoria findById(Long id) {
+        em = factory.createEntityManager();
         em.getTransaction().begin();
 
         StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("GET_CATEGORIA_BY_ID", Categoria.class);
@@ -54,7 +56,7 @@ public class CategoriaRepository implements StoredProcedureRepositoryImpl<Catego
 
         if (list.size() > 0) {
             String res = gson.toJson(list.get(0));
-            System.out.print("The description is: " + res);
+            System.out.print("The Categoria is: " + res);
             em.getTransaction().commit();
             em.close();
 
@@ -70,11 +72,12 @@ public class CategoriaRepository implements StoredProcedureRepositoryImpl<Catego
 
     @Override
     public void deleteById(Long id) {
+        em = factory.createEntityManager();
         em.getTransaction().begin();
 
         StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("DELETE_CATEGORIA", Categoria.class);
         storedProcedure.registerStoredProcedureParameter("idCategoria", Integer.class, ParameterMode.IN);
-        storedProcedure.setParameter("idCategoria", id);
+        storedProcedure.setParameter("idCategoria", Integer.valueOf(id.intValue()));
         storedProcedure.execute();
         List<Categoria> list = storedProcedure.getResultList();
 
@@ -92,6 +95,7 @@ public class CategoriaRepository implements StoredProcedureRepositoryImpl<Catego
 
     @Override
     public Categoria save(Categoria categoria) {
+        em = factory.createEntityManager();
         em.getTransaction().begin();
 
         StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("INSERT_CATEGORIA", Categoria.class);

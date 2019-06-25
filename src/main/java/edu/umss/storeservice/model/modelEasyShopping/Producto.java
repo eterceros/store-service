@@ -82,11 +82,11 @@ public class Producto extends ModelBase<ProductoDto> {
     private String descripcion;
     private Double precio;
 
-    @Column(name = "PorcentajeOferta", nullable = true)
+    @Column(name = "porcentaje_oferta", nullable = true)
     private Integer porcentajeOferta;
 
     @ManyToOne
-    @JoinColumn(name = "idCategoria", nullable = false)
+    @JoinColumn(name = "fk_categoria", nullable = false)
     private Categoria categoriaId;
 
     @Basic

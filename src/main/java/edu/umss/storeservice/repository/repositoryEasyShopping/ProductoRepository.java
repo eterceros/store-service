@@ -20,12 +20,13 @@ public class ProductoRepository implements StoredProcedureRepositoryImpl<Product
 
     private EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-db");
 
-    private EntityManager em = factory.createEntityManager();
+    private EntityManager em;
 
     private Gson gson = new Gson();
 
     @Override
     public List<Producto> findAll() {
+        em = factory.createEntityManager();
         em.getTransaction().begin();
 
         StoredProcedureQuery storedProcedure = em.createNamedStoredProcedureQuery("GetAllProducto");
@@ -47,17 +48,18 @@ public class ProductoRepository implements StoredProcedureRepositoryImpl<Product
     @Override
     public Producto findById(Long id) {
 
+        em = factory.createEntityManager();
         em.getTransaction().begin();
 
         StoredProcedureQuery storedProcedure = em.createNamedStoredProcedureQuery("GetProductoById");
 
-        storedProcedure.setParameter("idProducto", id);
+        storedProcedure.setParameter("idProducto", Integer.valueOf(id.intValue()));
         storedProcedure.execute();
         List<Producto> list = storedProcedure.getResultList();
 
         if (list.size() > 0) {
             String res = gson.toJson(list.get(0));
-            System.out.print("The description is: " + res);
+            System.out.print("The data product are: " + res);
             em.getTransaction().commit();
             em.close();
 
@@ -73,11 +75,13 @@ public class ProductoRepository implements StoredProcedureRepositoryImpl<Product
 
     @Override
     public void deleteById(Long id) {
+
+        em = factory.createEntityManager();
         em.getTransaction().begin();
 
         StoredProcedureQuery storedProcedure = em.createNamedStoredProcedureQuery("DeleteProducto");
 
-        storedProcedure.setParameter("idProducto", id);
+        storedProcedure.setParameter("idProducto", Integer.valueOf(id.intValue()));
 
         boolean result = storedProcedure.execute();
         if (result = true) {
@@ -90,6 +94,7 @@ public class ProductoRepository implements StoredProcedureRepositoryImpl<Product
     @Override
     public Producto save(Producto producto) {
 
+        em = factory.createEntityManager();
         em.getTransaction().begin();
 
         StoredProcedureQuery storedProcedure = em.createNamedStoredProcedureQuery("InsertProducto");
