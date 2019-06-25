@@ -3,17 +3,17 @@ package edu.umss.storeservice.repository.repositoryEasyShopping;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import edu.umss.storeservice.model.modelEasyShopping.Categoria;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Juan Montaño
+ * @author Willy Sanchez Rojas
  */
 
-@Service
+@Component
 public class CategoriaRepository implements StoredProcedureRepositoryImpl<Categoria> {
 
     private EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-db");
@@ -95,7 +95,7 @@ public class CategoriaRepository implements StoredProcedureRepositoryImpl<Catego
         em.getTransaction().begin();
 
         StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("INSERT_CATEGORIA", Categoria.class);
-        storedProcedure.registerStoredProcedureParameter("descripcion", Integer.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("descripcion", String.class, ParameterMode.IN);
         storedProcedure.setParameter("descripcion", categoria.getDescripcion());
         storedProcedure.execute();
         List<Categoria> list = storedProcedure.getResultList();

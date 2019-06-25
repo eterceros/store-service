@@ -3,6 +3,7 @@ package edu.umss.storeservice.repository.repositoryEasyShopping;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import edu.umss.storeservice.model.modelEasyShopping.Caracteristica;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * @author Yerko Manzel
  */
+@Component
 public class CaracteristicaRepository implements StoredProcedureRepositoryImpl<Caracteristica> {
 
     private EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-db");
@@ -92,12 +94,12 @@ public class CaracteristicaRepository implements StoredProcedureRepositoryImpl<C
         em.getTransaction().begin();
 
         StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("INSERT_CARACTERISTICA", Caracteristica.class);
-        storedProcedure.registerStoredProcedureParameter("campo", Integer.class, ParameterMode.IN);
-        storedProcedure.registerStoredProcedureParameter("valor", Integer.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("campo", String.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("valor", String.class, ParameterMode.IN);
         storedProcedure.registerStoredProcedureParameter("fk_producto", Integer.class, ParameterMode.IN);
         storedProcedure.setParameter("campo", caracteristica.getCampo());
         storedProcedure.setParameter("valor", caracteristica.getValor());
-        storedProcedure.setParameter("fk_producto", caracteristica.getProducto());
+        storedProcedure.setParameter("fk_producto", caracteristica.getProducto().getId());
         storedProcedure.execute();
         List<Caracteristica> list = storedProcedure.getResultList();
 

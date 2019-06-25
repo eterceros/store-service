@@ -15,7 +15,7 @@ public class Caracteristica extends ModelBase<CaracteristicaDto> {
     private String valor;
 
     @ManyToOne
-    @JoinColumn(name = "fk_producto ", nullable = false)
+    @JoinColumn(name = "fk_producto", nullable = false)
     private Producto productoId;
 
 

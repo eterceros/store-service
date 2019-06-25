@@ -80,7 +80,7 @@ public class Proveedor extends ModelBase<ProveedorDto> {
     }
 
     @Basic
-    @Column(name = "name", nullable = false, length = 250)
+    @Column(name = "RazonSocial", nullable = false, length = 250)
     public String getName() {
         return name;
     }

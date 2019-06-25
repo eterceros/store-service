@@ -3,7 +3,7 @@ package edu.umss.storeservice.repository.repositoryEasyShopping;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import edu.umss.storeservice.model.modelEasyShopping.Producto;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @author Juan Montaño
  */
-@Service
+@Component
 public class ProductoRepository implements StoredProcedureRepositoryImpl<Producto> {
 
     private EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-db");

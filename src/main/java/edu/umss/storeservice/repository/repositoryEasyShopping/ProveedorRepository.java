@@ -4,6 +4,7 @@ package edu.umss.storeservice.repository.repositoryEasyShopping;
 import com.google.gson.Gson;
 import edu.umss.storeservice.model.modelEasyShopping.Proveedor;
 import org.modelmapper.TypeToken;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.List;
 /**
  * @author: Miguel A. Quispe
  */
-
+@Component
 public class ProveedorRepository implements StoredProcedureRepositoryImpl<Proveedor> {
     private EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-db");
 
@@ -92,9 +93,12 @@ public class ProveedorRepository implements StoredProcedureRepositoryImpl<Provee
         em.getTransaction().begin();
 
         StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("INSERT_PROVEEDOR", Proveedor.class);
-        storedProcedure.setParameter("nit", proveedor.getNit());
-        storedProcedure.setParameter("name", proveedor.getName());
+        storedProcedure.registerStoredProcedureParameter("nit", String.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("name", String.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("celular", String.class, ParameterMode.IN);
         storedProcedure.setParameter("celular", proveedor.getCelular());
+        storedProcedure.setParameter("name", proveedor.getName());
+        storedProcedure.setParameter("nit", proveedor.getNit());
         storedProcedure.execute();
         List<Proveedor> list = storedProcedure.getResultList();
 
