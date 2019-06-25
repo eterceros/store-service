@@ -18,7 +18,6 @@ public class StoreServiceApplication {
 //        StoredProcedureQuery storedProcedure = em.createNamedStoredProcedureQuery("GetAllProducto");
 //
 //        storedProcedure.execute();
-        //  Gson gson = new Gson();
 //
 //        List<Producto> list = storedProcedure.getResultList();
 //        String q = gson.toJson(list);

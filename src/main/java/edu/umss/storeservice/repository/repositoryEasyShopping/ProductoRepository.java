@@ -3,6 +3,7 @@ package edu.umss.storeservice.repository.repositoryEasyShopping;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import edu.umss.storeservice.model.modelEasyShopping.Producto;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,6 +15,7 @@ import java.util.List;
 /**
  * @author Juan Montaño
  */
+@Service
 public class ProductoRepository implements StoredProcedureRepositoryImpl<Producto> {
 
     private EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-db");
@@ -97,7 +99,7 @@ public class ProductoRepository implements StoredProcedureRepositoryImpl<Product
         storedProcedure.setParameter("descripcion", producto.getDescripcion());
         storedProcedure.setParameter("precio", producto.getPrecio());
         storedProcedure.setParameter("porcentaje_oferta", producto.getPorcentajeOferta());
-        storedProcedure.setParameter("fk_categoria", 1);
+        storedProcedure.setParameter("fk_categoria", Integer.valueOf(producto.getCategoriaId().getId().intValue()));
 
         List<Producto> list = storedProcedure.getResultList();
 
