@@ -5,7 +5,6 @@
 package edu.umss.storeservice;
 
 import edu.umss.storeservice.model.modelEasyShopping.Categoria;
-import edu.umss.storeservice.model.modelEasyShopping.Proveedor;
 import edu.umss.storeservice.repository.repositoryEasyShopping.CaracteristicaRepository;
 import edu.umss.storeservice.repository.repositoryEasyShopping.CategoriaRepository;
 import edu.umss.storeservice.repository.repositoryEasyShopping.ProductoRepository;
@@ -44,11 +43,27 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
     private void initData() {
         //--------------------------------EasyShopping-----------------------------------------------------------------
-        // ------ save producto------
-        System.out.print("------------------------------------------------------------------------->>>>>>>>>>>><");
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>save dates<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
         Categoria categoria = new Categoria();
-        categoria.setDescripcion("Bebidas añejas");
+        Categoria categoria2 = new Categoria();
+
+        categoria.setDescripcion("REPUESTOS");
+        categoria2.setDescripcion("ELECTRONICOS");
         categoria = categoriaRepository.save(categoria);
+        categoria2 = categoriaRepository.save(categoria2);
+
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>find by id<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+        categoriaRepository.findById(categoria.getId());
+
+        System.out.println("************************find all************************");
+        categoriaRepository.findAll();
+
+        System.out.println("--------------------------- delete ---------------------------");
+        categoriaRepository.deleteById(categoria.getId());
+
+        System.out.println("---------------------------* find all*----------------------------");
+
+
 
         /*Producto producto = new Producto();
         producto.setNombre("Ron Zacapa");
@@ -58,13 +73,13 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         producto.setPorcentajeOferta(0);
         producto.setCategoriaId(categoria);
 
-        productoRepository.save(producto);*/
+        productoRepository.save(producto);
 
         Proveedor proveedor = new Proveedor();
         proveedor.setCelular("773374758");
         proveedor.setName("Samsung agency");
         proveedor.setNit("989000405");
-        proveedorRepository.save(proveedor);
+        proveedorRepository.save(proveedor);*/
 
 
 
