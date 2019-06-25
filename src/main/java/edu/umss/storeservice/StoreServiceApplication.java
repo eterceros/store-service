@@ -8,6 +8,7 @@ public class StoreServiceApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(StoreServiceApplication.class, args);
+
 //------------ Juan------Producto
 //        EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-db");
 //        EntityManager em = factory.createEntityManager();
@@ -17,7 +18,6 @@ public class StoreServiceApplication {
 //        StoredProcedureQuery storedProcedure = em.createNamedStoredProcedureQuery("GetAllProducto");
 //
 //        storedProcedure.execute();
-        // Gson gson = new Gson();
 //
 //        List<Producto> list = storedProcedure.getResultList();
 //        String q = gson.toJson(list);
@@ -179,7 +179,7 @@ public class StoreServiceApplication {
 //            em.close();
 //        }
 //
-          //--------------------------------------------------------
+        //--------------------------------------------------------
 //        EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-db");
 //        EntityManager em = factory.createEntityManager();
 //        em.getTransaction().begin();
@@ -202,7 +202,7 @@ public class StoreServiceApplication {
 //            em.close();
 //        }
 //
-          //--------------------------------------------------------
+        //--------------------------------------------------------
 //        EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-db");
 //        EntityManager em = factory.createEntityManager();
 //        em.getTransaction().begin();
@@ -229,6 +229,84 @@ public class StoreServiceApplication {
 //            em.close();
 //        }
 //--------------Final Caracteristica-------------------------
+
+//---------Miguel Proveedor-------------------------------------------------------------------------
+        //        EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-db");
+//        EntityManager em = factory.createEntityManager();
+//
+//        em.getTransaction().begin();
+//        StoredProcedureQuery storedProcedure=em.createNamedStoredProcedureQuery("getAllProveedor");
+//
+//        storedProcedure.execute();
+//        Gson gson = new Gson();
+//        List<Proveedor> list = storedProcedure.getResultList();
+//        String q = gson.toJson(list);
+//        list = gson.fromJson(q, new TypeToken<ArrayList<Proveedor>>(){}.getType());
+//        list.forEach(proveedor -> System.out.println("provedor ="+proveedor.getName()));
+//        System.out.println("The proveedor:" + list.get(0).getName());
+//        em.getTransaction().commit();
+//        em.close();
+
+//        EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-db");
+//        EntityManager em = factory.createEntityManager();
+//
+//        em.getTransaction().begin();
+//
+//        StoredProcedureQuery storedProcedure = em.createNamedStoredProcedureQuery("GetProveedorById");
+//        //storedProcedure.registerStoredProcedureParameter("idProducto", Integer.class,ParameterMode.IN);
+//        storedProcedure.setParameter("idProveedor",2);
+//
+//        storedProcedure.execute();
+//        Gson gson = new Gson();
+//
+//        List<Proveedor> list = storedProcedure.getResultList();
+//        String q = gson.toJson(list);
+//        list = gson.fromJson(q, new TypeToken<ArrayList<Proveedor>>(){}.getType());
+//        System.out.println("el producto es : " + list);
+//        System.out.println("el modelo es " + list.get(0).getName());
+//        em.getTransaction().commit();
+//        em.close();
+
+//        EntityManagerFactory factory = Persistence.createEntityManagerFactory("jpa-db");
+//        EntityManager em = factory.createEntityManager();
+//
+//        em.getTransaction().begin();
+//
+//        StoredProcedureQuery storedProcedure = em.createNamedStoredProcedureQuery("DeleteProveedor");
+//        storedProcedure.setParameter("idProveedor", 3);
+//
+//        boolean result = storedProcedure.execute();
+//        if (result = true) {
+//            System.out.print("el producto ha sido elimnado con exito");
+//        }
+
+//        EntityManagerFactory factory1 = Persistence.createEntityManagerFactory("jpa-db");
+//        EntityManager em1 = factory1.createEntityManager();
+//        em1.getTransaction().begin();
+//        StoredProcedureQuery storedProcedure = em1.createNamedStoredProcedureQuery("InsertProveedor");
+//
+//        Proveedor pro = new Proveedor();
+//        pro.getClass().getName();
+//
+//        storedProcedure.setParameter("nit", "SDF-343-43DF");
+//        storedProcedure.setParameter("name", "MPQN");
+//        storedProcedure.setParameter("celular", "76656654");
+//
+//        List<Proveedor> list = storedProcedure.getResultList();
+//        Gson gson = new Gson();
+//
+//        if (list.size() > 0) {
+//
+//            String res1 = gson.toJson(list.get(0));
+//            System.out.print("Insert date is: " + res1);
+//            em1.getTransaction().commit();
+//            em1.close();
+//
+//        } else {
+//            em1.getTransaction().commit();
+//            em1.close();
+//        }
+
     }
 
 }

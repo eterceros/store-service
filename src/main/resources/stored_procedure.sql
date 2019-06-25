@@ -175,4 +175,58 @@ as
 GO
 ------------------------------- Final de Caracteristica ----------------------------------------------
 
+-----------------------PROVEEDOR PROCEDURE---------------------------------------------------
+
+CREATE procedure GET_ALL_PROVEEDOR
+as
+SET XACT_ABORT ON;
+SET NOCOUNT ON;
+BEGIN
+	select *
+	from proveedor
+END
+GO
+----------------------------------------------------
+
+CREATE procedure GET_PROVEEDOR_BY_ID
+(
+	@idProveedor int
+)
+as
+SET XACT_ABORT ON;
+SET NOCOUNT ON;
+BEGIN
+	select *
+	from dbo.proveedor proveedor
+	where proveedor.id = @idProveedor;
+END
+GO
+
+--------------------------------------------------
+CREATE procedure DELETE_PROVEEDOR
+(
+	@idProveedor int
+)
+as
+SET XACT_ABORT ON;
+SET NOCOUNT ON;
+BEGIN
+	delete from proveedor where id = @idProveedor;
+END
+GO
+-------------------------------------------------
+create procedure INSERT_PROVEEDOR
+(
+	@celular varchar(50),
+	@name varchar(50),
+	@nit varchar(50)
+)
+as
+SET XACT_ABORT ON;
+SET NOCOUNT ON;
+BEGIN
+	insert into proveedor(celular,name,nit) values(@celular,@name,@nit);
+	select * from proveedor where id=@@IDENTITY;
+END
+GO
 
