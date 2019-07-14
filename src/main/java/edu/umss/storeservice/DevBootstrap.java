@@ -84,23 +84,41 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         montacargaSubCategory.setName("MONTACARGA");
         subCategoryService.save(montacargaSubCategory);
 
+        //feature
+        Feature feature1 = new Feature();
+        feature1.setName("feature1");
+        feature1 = featureService.save(feature1);
+
+        Feature feature2 = new Feature();
+        feature2.setName("feature2");
+        feature2 = featureService.save(feature2);
+
+        Feature feature3 = new Feature();
+        feature3.setName("feature3");
+        feature3 = featureService.save(feature3);
+
+
         // tractorKubota10 Item
         Item tractorKubota10 = saveItem(tractorSubCategory, "TRACTOR-K-10", "Tractor Kubota 10.5 Hp",
                 "Tractor útil para arado en superficies regulares sin pendientes pronunciadas. Modelo JB11XA, Con " +
                         "Rotocultor, Diesel, 4x4, 10,5 HP. Año 2015");
         saveItemInstance(tractorKubota10, true);
+        saveFeatureInstance(feature1, tractorKubota10, "valor1");
+
 
         // tractorKubota20 Item
         Item tractorKubota20 = saveItem(tractorSubCategory, "TRACTOR-K-20", "Tractor kubota con pala 20Hp",
                 "Tractor útil para arado en superficies con pendientes pronunciadas, para situaciones de alto " +
                         "esfuerzo. Modelo L1-20DT, Con Rotocultor, Diesel 4x4, 20 HP, Con Pala.");
         saveItemInstance(tractorKubota20, false);
+        saveFeatureInstance(feature2, tractorKubota20, "valor2");
 
         // motocultor Item
         Item motocultor = saveItem(motocultorSubCategory, "MOT-M-3", "Motocultor yanmar 250",
                 "Motocultor útil para arado en superficies de dificil acceso, con espacios reducidos, para " +
                         "situaciones de alto esfuerzo. Arado De Mano Modelo YC80, Diesel.");
         saveItemInstance(motocultor, false);
+        saveFeatureInstance(feature3, motocultor, "valor3");
 
         // montacargaMitsubishi2T Item
         Item montacargaMitsubishi2T = saveItem(montacargaSubCategory, "MON-M-2T", "Montacarga",
@@ -131,11 +149,21 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         //contractService.save(contract);
     }
 
-    private void saveItemInstance(Item tractorKubota10, boolean featured) {
+    private void saveFeatureInstance(Feature feature1, Item tractorKubota10, String value) {
+        //Feature instance
+        FeatureInstance featureInstance1 = new FeatureInstance();
+        featureInstance1.setFeature(feature1);
+        featureInstance1.setValue(value);
+        featureInstance1.setItem(tractorKubota10);
+        featureInstanceService.save(featureInstance1);
+    }
+
+    private ItemInstance saveItemInstance(Item tractorKubota10, boolean featured) {
         ItemInstance itemInstance = new ItemInstance();
         itemInstance.setFeatured(featured);
         itemInstance.setItem(tractorKubota10);
-        itemInstanceService.save(itemInstance);
+        itemInstance.setPrice(19000.5);
+        return itemInstanceService.save(itemInstance);
     }
 
     private Item saveItem(SubCategory tractorSubCategory, String code, String name, String description) {

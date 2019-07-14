@@ -4,8 +4,20 @@
 
 package edu.umss.storeservice.model;
 
-public enum ExpenseType {
-    IMPORT,
-    MAINTENANCE,
-    OTHER
+import edu.umss.storeservice.dto.ExpenseTypeDto;
+
+import javax.persistence.Entity;
+
+@Entity
+public class ExpenseType extends ModelBase<ExpenseTypeDto> {
+
+    private String typeName;
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
 }

@@ -23,7 +23,7 @@ public class ItemServiceImpl extends GenericServiceImpl<Item> implements ItemSer
     }
 
     @Override
-    public void setImage(Item itemPersisted, Byte[] bytes) {
-        itemPersisted.setImage(bytes);
+    public void setImage(Item model, String base64String) {
+        model.setImage(base64String);
     }
 }

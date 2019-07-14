@@ -4,7 +4,6 @@
 package edu.umss.storeservice.dto;
 
 import edu.umss.storeservice.model.Item;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.modelmapper.ModelMapper;
 
 public class ItemDto extends DtoBase<Item> {
@@ -115,12 +114,12 @@ public class ItemDto extends DtoBase<Item> {
         setCategory(item.getSubCategory().getCategory().getName());
         setLabel(item.getName());
         if (item.getImage() != null) {
-            byte[] bytes = new byte[item.getImage().length];
-            for (int i = 0; i < item.getImage().length; i++) {
-                bytes[i] = item.getImage()[i];
-            }
-            String imageStr = Base64.encodeBase64String(bytes);
-            setImage(imageStr);
+//            byte[] bytes = new byte[item.getImage().length];
+//            for (int i = 0; i < item.getImage().length; i++) {
+//                bytes[i] = item.getImage()[i];
+//            }
+//            String imageStr = Base64.encodeBase64String(bytes);
+            setImage(item.getImage());
         }
         setPrice("5");
         return this;

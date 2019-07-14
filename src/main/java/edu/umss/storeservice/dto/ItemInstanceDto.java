@@ -6,14 +6,17 @@
 package edu.umss.storeservice.dto;
 
 import edu.umss.storeservice.model.ItemInstance;
+import edu.umss.storeservice.model.ItemInstanceState;
 import org.modelmapper.ModelMapper;
+
+import java.util.List;
 
 public class ItemInstanceDto extends DtoBase<ItemInstance> {
 
     private String name;
     private String code;
     private String label;
-    private String image;
+    private List<ImageDto> images;
     private String category;
     private Long subCategoryId;
     private String price;
@@ -23,6 +26,7 @@ public class ItemInstanceDto extends DtoBase<ItemInstance> {
     private Boolean featured;
     private String identifier;
     private ItemDto itemDto;
+    private ItemInstanceState itemInstanceState;
 
     public String getName() {
         return name;
@@ -48,12 +52,12 @@ public class ItemInstanceDto extends DtoBase<ItemInstance> {
         this.label = label;
     }
 
-    public String getImage() {
-        return image;
+    public List<ImageDto> getImages() {
+        return images;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImages(List<ImageDto> images) {
+        this.images = images;
     }
 
     public String getCategory() {
@@ -130,13 +134,21 @@ public class ItemInstanceDto extends DtoBase<ItemInstance> {
         this.itemDto = itemDto;
     }
 
+    public ItemInstanceState getItemInstanceState() {
+        return itemInstanceState;
+    }
+
+    public void setItemInstanceState(ItemInstanceState itemInstanceState) {
+        this.itemInstanceState = itemInstanceState;
+    }
+
     @Override
     public DtoBase toDto(ItemInstance itemInstance, ModelMapper mapper) {
         super.toDto(itemInstance, mapper);
         mapper.map(itemInstance.getItem(), this);
         // copy item to itemdto
         setItemDto(new ItemDto().toDto(itemInstance.getItem(), mapper));
-        setImage(getItemDto().getImage());
+        setCategory(itemInstance.getItem().getSubCategory().getName());
         return this;
     }
 }

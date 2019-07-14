@@ -7,8 +7,8 @@ package edu.umss.storeservice.model;
 import edu.umss.storeservice.dto.ItemInstanceDto;
 import org.modelmapper.ModelMapper;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class ItemInstance extends ModelBase<ItemInstanceDto> {
@@ -20,9 +20,15 @@ public class ItemInstance extends ModelBase<ItemInstanceDto> {
 
     // todo generalmente se usa BigDecimal
     private Double price;
-    // todo estados AVAILABLE, SOLD, MAINTENANCE, ON_TRANSPORTATION
-    // private ItemInstanceState itemInstanceState;
+    @Enumerated(EnumType.STRING)
+    private ItemInstanceState itemInstanceState;
     // todo agregar totalCost
+
+    @OneToMany
+    private Set<Expense> expenses;
+
+    @OneToMany
+    private Set<Image> images;
 
     public Item getItem() {
         return item;
@@ -54,6 +60,30 @@ public class ItemInstance extends ModelBase<ItemInstanceDto> {
 
     public void setFeatured(Boolean featured) {
         this.featured = featured;
+    }
+
+    public Set<Expense> getExpenses() {
+        return expenses;
+    }
+
+    public void setExpenses(Set<Expense> expenses) {
+        this.expenses = expenses;
+    }
+
+    public ItemInstanceState getItemInstanceState() {
+        return itemInstanceState;
+    }
+
+    public void setItemInstanceState(ItemInstanceState itemInstanceState) {
+        this.itemInstanceState = itemInstanceState;
+    }
+
+    public Set<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<Image> images) {
+        this.images = images;
     }
 
     @Override

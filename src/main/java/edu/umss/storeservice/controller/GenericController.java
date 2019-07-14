@@ -10,6 +10,7 @@ import edu.umss.storeservice.exception.InternalErrorException;
 import edu.umss.storeservice.model.ModelBase;
 import edu.umss.storeservice.service.GenericService;
 import io.micrometer.core.instrument.util.IOUtils;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -171,7 +172,10 @@ public abstract class GenericController<E extends ModelBase, D extends DtoBase<E
             @PathVariable("id") Long id) throws IOException {
         for (MultipartFile uploadedFile : uploadingFiles) {
             uploadedFile.getOriginalFilename();
-            getService().saveImage(id, uploadedFile.getInputStream());
+            String image = Base64.encodeBase64String(uploadedFile.getBytes());
+            ModelBase model = getService().findById(id);
+            getService().setImage(model, image);
+            getService().save(model);
         }
         return ResponseEntity.ok("Image uploaded successfully");
     }
@@ -179,6 +183,12 @@ public abstract class GenericController<E extends ModelBase, D extends DtoBase<E
 
     @RequestMapping(method = RequestMethod.OPTIONS)
     public ResponseEntity preflight(HttpServletResponse response) {
+        response.setHeader("Allow", "HEAD,GET,POST,PUT,PATCH,OPTIONS");
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.OPTIONS)
+    public ResponseEntity preflightSingleElement(HttpServletResponse response) {
         response.setHeader("Allow", "HEAD,GET,POST,PUT,PATCH,OPTIONS");
         return new ResponseEntity(HttpStatus.OK);
     }

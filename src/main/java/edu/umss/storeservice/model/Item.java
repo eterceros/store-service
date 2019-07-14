@@ -29,7 +29,7 @@ public class Item extends ModelBase<ItemDto> {
 
     //todo mover a otra entidad para soportar muchas imagenes
     @Lob
-    private Byte[] image;
+    private String image;
 
     @OneToOne(targetEntity = SubCategory.class)
     private SubCategory subCategory;
@@ -50,11 +50,11 @@ public class Item extends ModelBase<ItemDto> {
         this.code = code;
     }
 
-    public Byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
