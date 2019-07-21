@@ -25,12 +25,13 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     private PositionService positionService;
     private SaleService saleService;
     private SubCategoryService subCategoryService;
+    private ExpenseTypeService expenseTypeService;
 
     public DevBootstrap(CategoryService categoryService, ContractService contractService,
             EmployeeService employeeService, ExpenseService expenseService,
             FeatureInstanceService featureInstanceService, FeatureService featureService,
             ItemInstanceService itemInstanceService, ItemService itemService, PositionService positionService,
-            SaleService saleService, SubCategoryService subCategoryService) {
+            SaleService saleService, SubCategoryService subCategoryService, ExpenseTypeService expenseTypeService) {
         this.categoryService = categoryService;
         this.contractService = contractService;
         this.employeeService = employeeService;
@@ -42,6 +43,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         this.positionService = positionService;
         this.saleService = saleService;
         this.subCategoryService = subCategoryService;
+        this.expenseTypeService = expenseTypeService;
     }
 
     @Override
@@ -50,6 +52,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     }
 
     private void initData() {
+
+        ExpenseType expenseType = saveExpenseType();
         // MAQUINARIA category
         Category maquinariaCategory = new Category();
         maquinariaCategory.setCode("MAQ");
@@ -102,7 +106,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         Item tractorKubota10 = saveItem(tractorSubCategory, "TRACTOR-K-10", "Tractor Kubota 10.5 Hp",
                 "Tractor útil para arado en superficies regulares sin pendientes pronunciadas. Modelo JB11XA, Con " +
                         "Rotocultor, Diesel, 4x4, 10,5 HP. Año 2015");
-        saveItemInstance(tractorKubota10, true);
+        saveItemInstance(tractorKubota10, true, expenseType);
         saveFeatureInstance(feature1, tractorKubota10, "valor1");
 
 
@@ -110,21 +114,21 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         Item tractorKubota20 = saveItem(tractorSubCategory, "TRACTOR-K-20", "Tractor kubota con pala 20Hp",
                 "Tractor útil para arado en superficies con pendientes pronunciadas, para situaciones de alto " +
                         "esfuerzo. Modelo L1-20DT, Con Rotocultor, Diesel 4x4, 20 HP, Con Pala.");
-        saveItemInstance(tractorKubota20, false);
+        saveItemInstance(tractorKubota20, false, expenseType);
         saveFeatureInstance(feature2, tractorKubota20, "valor2");
 
         // motocultor Item
         Item motocultor = saveItem(motocultorSubCategory, "MOT-M-3", "Motocultor yanmar 250",
                 "Motocultor útil para arado en superficies de dificil acceso, con espacios reducidos, para " +
                         "situaciones de alto esfuerzo. Arado De Mano Modelo YC80, Diesel.");
-        saveItemInstance(motocultor, false);
+        saveItemInstance(motocultor, false, expenseType);
         saveFeatureInstance(feature3, motocultor, "valor3");
 
         // montacargaMitsubishi2T Item
         Item montacargaMitsubishi2T = saveItem(montacargaSubCategory, "MON-M-2T", "Montacarga",
                 "Hechos pensados en la industria donde la exigencia del equipo es frecuente. Komatsu BOBLE, ALTURA " +
                         "ELEVANTE 3,0 MTS");
-        saveItemInstance(montacargaMitsubishi2T, false);
+        saveItemInstance(montacargaMitsubishi2T, false, expenseType);
 
         // Employee Employee
         Employee john = new Employee();
@@ -158,12 +162,13 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         featureInstanceService.save(featureInstance1);
     }
 
-    private ItemInstance saveItemInstance(Item tractorKubota10, boolean featured) {
+    private void saveItemInstance(Item tractorKubota10, boolean featured, ExpenseType expenseType) {
         ItemInstance itemInstance = new ItemInstance();
         itemInstance.setFeatured(featured);
         itemInstance.setItem(tractorKubota10);
         itemInstance.setPrice(19000.5);
-        return itemInstanceService.save(itemInstance);
+        itemInstanceService.save(itemInstance);
+        saveExpense(itemInstance, expenseType);
     }
 
     private Item saveItem(SubCategory tractorSubCategory, String code, String name, String description) {
@@ -173,6 +178,21 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         item.setDescription(description);
         item.setSubCategory(tractorSubCategory);
         return itemService.save(item);
+    }
+
+    private void saveExpense(ItemInstance instance, ExpenseType expenseType) {
+        Expense expenseInstance = new Expense();
+        expenseInstance.setItemInstance(instance);
+        expenseInstance.setExpenseType(expenseType);
+        expenseService.save(expenseInstance);
+
+
+    }
+
+    private ExpenseType saveExpenseType() {
+        ExpenseType expenseType = new ExpenseType();
+        expenseType.setTypeName("Transporte");
+        return expenseTypeService.save(expenseType);
     }
 
 }

@@ -15,6 +15,8 @@ public class Image extends ModelBase<ImageDto> {
     @Lob
     private String image;
 
+    private boolean featured;
+
     private String name;
 
     @ManyToOne
@@ -42,5 +44,13 @@ public class Image extends ModelBase<ImageDto> {
 
     public void setItemInstance(ItemInstance itemInstance) {
         this.itemInstance = itemInstance;
+    }
+
+    public boolean isFeatured() {
+        return featured;
+    }
+
+    public void setFeatured(boolean featured) {
+        this.featured = featured;
     }
 }

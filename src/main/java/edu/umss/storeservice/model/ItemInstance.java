@@ -89,7 +89,7 @@ public class ItemInstance extends ModelBase<ItemInstanceDto> {
     @Override
     public ModelBase toDomain(ItemInstanceDto element, ModelMapper mapper) {
         super.toDomain(element, mapper);
-        setItem((Item) new Item().toDomain(element.getItemDto(), mapper));
+        setItem((Item) new Item().toDomain(element.getItem(), mapper));
         return this;
     }
 }

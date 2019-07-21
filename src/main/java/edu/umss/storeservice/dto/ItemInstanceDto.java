@@ -25,7 +25,7 @@ public class ItemInstanceDto extends DtoBase<ItemInstance> {
     private String description;
     private Boolean featured;
     private String identifier;
-    private ItemDto itemDto;
+    private ItemDto item;
     private ItemInstanceState itemInstanceState;
 
     public String getName() {
@@ -126,12 +126,12 @@ public class ItemInstanceDto extends DtoBase<ItemInstance> {
         this.identifier = identifier;
     }
 
-    public ItemDto getItemDto() {
-        return itemDto;
+    public ItemDto getItem() {
+        return item;
     }
 
-    public void setItemDto(ItemDto itemDto) {
-        this.itemDto = itemDto;
+    public void setItem(ItemDto item) {
+        this.item = item;
     }
 
     public ItemInstanceState getItemInstanceState() {
@@ -147,7 +147,7 @@ public class ItemInstanceDto extends DtoBase<ItemInstance> {
         super.toDto(itemInstance, mapper);
         mapper.map(itemInstance.getItem(), this);
         // copy item to itemdto
-        setItemDto(new ItemDto().toDto(itemInstance.getItem(), mapper));
+        setItem(new ItemDto().toDto(itemInstance.getItem(), mapper));
         setCategory(itemInstance.getItem().getSubCategory().getName());
         return this;
     }
