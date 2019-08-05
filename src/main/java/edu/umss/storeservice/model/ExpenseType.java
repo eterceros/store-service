@@ -11,13 +11,13 @@ import javax.persistence.Entity;
 @Entity
 public class ExpenseType extends ModelBase<ExpenseTypeDto> {
 
-    private String typeName;
+    private String name;
 
-    public String getTypeName() {
-        return typeName;
+    public String getName() {
+        return name;
     }
 
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
+    public void setName(String name) {
+        this.name = name;
     }
 }

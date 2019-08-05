@@ -7,13 +7,13 @@ import edu.umss.storeservice.model.ExpenseType;
  */
 public class ExpenseTypeDto extends DtoBase<ExpenseType> {
 
-    private String typeName;
+    private String name;
 
-    public String getTypeName() {
-        return typeName;
+    public String getName() {
+        return name;
     }
 
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
+    public void setName(String name) {
+        this.name = name;
     }
 }

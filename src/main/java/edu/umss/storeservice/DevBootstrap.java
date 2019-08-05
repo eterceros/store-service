@@ -184,6 +184,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         Expense expenseInstance = new Expense();
         expenseInstance.setItemInstance(instance);
         expenseInstance.setExpenseType(expenseType);
+        expenseInstance.setValue(200L);
+        expenseInstance.setDescription("Transporte maritimo");
         expenseService.save(expenseInstance);
 
 
@@ -191,7 +193,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
     private ExpenseType saveExpenseType() {
         ExpenseType expenseType = new ExpenseType();
-        expenseType.setTypeName("Transporte");
+        expenseType.setName("Transporte");
         return expenseTypeService.save(expenseType);
     }
 
